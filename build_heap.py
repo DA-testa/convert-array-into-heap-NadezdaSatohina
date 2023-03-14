@@ -3,34 +3,49 @@
 
 def build_heap(data):
     swaps = []
-    # TODO: Creat heap and heap sort
-    # try to achieve  O(n) and not O(n2)
+    sz = len(data)   
+    
+    def heapify(i):
+        left = 2 * i + 1
+        right = 2 * i + 2
+        smallest = i
+        
+        if left < sz and data[left] < data[smallest]:
+            smallest = left
+            
+        if right < sz and data[right] < data[smallest]:
+            smallest = right
+            
+        if smallest != i:
+            swaps.append([i, smallest])
+            data[i], data[smallest] = data[smallest], data[i]
+            heapify(smallest)
 
-
+    for i in range(int(sz / 2), -1, -1):
+        heapify(i)
+        
     return swaps
 
 
 def main():
-    
-    # TODO : add input and corresponding checks
-    # add another input for I or F 
-    # first two tests are from keyboard, third test is from a file
+    input_type = input()
 
+    if "F" in input_type:
+        filename = input()
+        if ".a" in filename:
+            return
+        if "test/" not in filename:
+            filename = "test/" + filename
+        if "test/" in filename:    
+            with open(filename) as f:
+                n = int(f.readline().strip())
+                data = list(map(int, f.readline().strip().split()))
+                swaps = build_heap(data)
 
-    # input from keyboard
-    n = int(input())
-    data = list(map(int, input().split()))
-
-    # checks if lenght of data is the same as the said lenght
-    assert len(data) == n
-
-    # calls function to assess the data 
-    # and give back all swaps
-    swaps = build_heap(data)
-
-    # TODO: output how many swaps were made, 
-    # this number should be less than 4n (less than 4*len(data))
-
+    elif "I" in input_type:
+        n = int(input())
+        data = list(map(int, input().split()))
+        swaps = build_heap(data)
 
     # output all swaps
     print(len(swaps))
