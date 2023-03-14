@@ -34,9 +34,9 @@ def main():
         filename = input()
         if ".a" in filename:
             return
-        if "test/" not in filename:
-            filename = "test/" + filename
-        if "test/" in filename:    
+        if "tests/" not in filename:
+            filename = "tests/" + filename
+        if "tests/" in filename:    
             with open(filename) as f:
                 n = int(f.readline().strip())
                 data = list(map(int, f.readline().strip().split()))
